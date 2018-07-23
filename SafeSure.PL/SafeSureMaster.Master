@@ -1,0 +1,91 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SafeSureMaster.master.cs" Inherits="SafeSure.PL.SafeSureMaster" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+   <div>
+            <table>
+                <tr style="width: 100%">
+                    <td colspan="2" style="background-color: white; color: #2454a0; font-weight: 50px; font-size: 20PX">
+                        <asp:Image ID="imgHomeLogo" runat="server" ImageUrl="~/Images/homelogo.PNG" ImageAlign="AbsMiddle" Height="106px" Width="242px" />
+                    </td>
+                    <td style="background-color: white; color: #2454a0; font-weight: 600; font-family:Aharoni; font-size: 40PX; text-align: left">
+                        &nbsp;&nbsp;SAFE SURE INSURANCE&nbsp;&nbsp;
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="2" style="background-color: White; color: #2454a0; font-weight: 600; font-size: 16PX; text-align: left; height: 10px;font-family:Aharoni">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;With us, You're Sure &nbsp;&nbsp;
+                    </td>
+                    <td style="background-color: White; color: #2454a0; font-weight: 600; font-size: 30PX; text-align: right; height: 10px;font-family:Aharoni">
+                        &nbsp;&nbsp;1800 2800 3800 &nbsp;&nbsp;
+                    </td>
+                </tr>
+
+                <tr>
+                    
+
+                </tr>
+                <tr>
+                    <td colspan="3" style="background-color: #2454a0; color: white; height: 42px; font-size: 15px;font-family:Aharoni">
+                        <div id="divMenu" runat="server" >
+                            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;   
+                         <asp:HyperLink ID="hrlHome" runat="server" ForeColor="White" Text="HOME" NavigateUrl="~/HomePage.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <asp:HyperLink ID="hrlProducts" runat="server" ForeColor="White" Text="PRODUCTS" NavigateUrl="~/Products.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <asp:HyperLink ID="hrlAboutUs" runat="server" ForeColor="White" Text="ABOUT US" NavigateUrl="~/AboutUs.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                       <asp:HyperLink ID="hrlContactUs" runat="server" ForeColor="White" Text="CONTACT US" NavigateUrl="~/ContactUs.aspx"></asp:HyperLink>
+                             </div>
+                        <div id="divLogout" style="text-align:right" runat="server" visible="false">
+                            <asp:LinkButton ForeColor="White" ID="LinkButton1" runat="server" OnClick="lbtnLogout_Click">Logout</asp:LinkButton> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    
+                       
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <asp:ContentPlaceHolder ID="PolicyContent" runat="server"></asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" style="background-color: beige; height: 20px; font-size: 15px; text-align: center">
+                        <div id="divFootMenu" runat="server">
+  <asp:HyperLink ID="hrlAgents" runat="server" ForeColor="#2142c2" Text="Agents Corner" NavigateUrl="~/Footer Menu/AgentsCorner.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <asp:HyperLink ID="hrlAnnualReport" runat="server" ForeColor="#2142c2" Text="Annual Report" NavigateUrl="~/Footer Menu/AnnualReport.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <asp:HyperLink ID="hrlBraches" runat="server" ForeColor="#2142c2" Text="Branch offices" NavigateUrl="~/Footer Menu/BranchOffice.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                       <asp:HyperLink ID="hrlFAQS" runat="server" ForeColor="#2142c2" Text="FAQ'S" NavigateUrl="~/Footer Menu/FAQ'S.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                       <asp:HyperLink ID="hrlCareers" runat="server" ForeColor="#2142c2" Text="Careers" NavigateUrl="~/Footer Menu/Careers.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <asp:HyperLink ID="hrlFeedback" runat="server" ForeColor="#2142c2" Text="Feedback" NavigateUrl="~/Footer Menu/Feedbacks.aspx"></asp:HyperLink><br />
+                         <asp:HyperLink ID="hrlConsultancy" runat="server" ForeColor="#2142c2" Text="Consultancy" NavigateUrl="~/Footer Menu/Consultancy.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                       <asp:HyperLink ID="hrlAwards" runat="server" ForeColor="#2142c2" Text="Awards" NavigateUrl="~/Footer Menu/Awards.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                 <asp:HyperLink ID="hrlAchievements" runat="server" ForeColor="#2142c2" Text="Achievements" NavigateUrl="~/Footer Menu/Achievements.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                   <asp:HyperLink ID="hrlEnquiry" runat="server" ForeColor="#2142c2" Text="Enquiry" NavigateUrl="~/Footer Menu/Enquriy.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;   
+                    <asp:HyperLink ID="hrlPrivacy" runat="server" ForeColor="#2142c2" Text="Privacy Policy" NavigateUrl="~/Footer Menu/PrivacyPolicy.aspx"></asp:HyperLink>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                       
+                    
+                            
+                        </div>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="3" style="background-color: white; color: #2454a0; font-size: 12px; text-align: justify">&copy.All Rights Reserved!!!<br />
+                        *T&C apply.​​ Discounts mentioned above is based on Vehicle category, Loyalty, Parking & Driving experience.​​ ​Registered Office: ​H Block, 1st Floor, Dhirubhai Ambani Knowledge City,Chennai-600710 | ​Corporate Office: Safesure, South wing, 4th​ Floor, Off Western Express Highway, Santacruz (East), Mumbai - 400055
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

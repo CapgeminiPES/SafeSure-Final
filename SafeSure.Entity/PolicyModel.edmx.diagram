@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="08aa43c8b2bb4a40826a970f93ca6349" Name="Diagram1">
+        <EntityTypeShape EntityType="MayCHNModel.Customer" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayCHNModel.Document" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayCHNModel.Endorsement" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayCHNModel.InsuranceProduct" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayCHNModel.LoginAdmin" Width="1.5" PointX="14.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayCHNModel.LoginDetail" Width="1.5" PointX="12" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayCHNModel.Policy" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="MayCHNModel.CustID_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="MayCHNModel.FK__Endorseme__custo__52CF095B" ManuallyRouted="false" />
+        <AssociationConnector Association="MayCHNModel.ProId_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="MayCHNModel.FK__Documents__endor__7DCE75F9" ManuallyRouted="false" />
+        <AssociationConnector Association="MayCHNModel.FK__Endorseme__Polic__79FDE515" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

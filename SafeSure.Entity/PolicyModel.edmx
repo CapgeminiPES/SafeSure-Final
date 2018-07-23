@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MayCHNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="Customer_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Customer_address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Mobile_number" Type="varchar" MaxLength="20" />
+          <Property Name="gender" Type="varchar" MaxLength="1" />
+          <Property Name="Smoker" Type="varchar" MaxLength="5" />
+          <Property Name="Date_of_Birth" Type="date" />
+          <Property Name="Hobbies" Type="varchar" MaxLength="50" />
+          <Property Name="endorsementStatus" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="documentId" />
+          </Key>
+          <Property Name="documentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="endorsementId" Type="int" />
+          <Property Name="idNumber" Type="varchar" MaxLength="30" />
+          <Property Name="idDescription" Type="varchar" MaxLength="60" />
+          <Property Name="Policy_number" Type="int" />
+        </EntityType>
+        <EntityType Name="Endorsement">
+          <Key>
+            <PropertyRef Name="endorsementId" />
+          </Key>
+          <Property Name="endorsementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Policy_number" Type="int" />
+          <Property Name="endorsementStatus" Type="varchar" MaxLength="20" />
+          <Property Name="customer_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="InsuranceProducts">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="int" Nullable="false" />
+          <Property Name="Product_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LoginAdmin">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="LoginDetails">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Customer_Password" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Policy">
+          <Key>
+            <PropertyRef Name="Policy_number" />
+          </Key>
+          <Property Name="Policy_number" Type="int" Nullable="false" />
+          <Property Name="Customer_id" Type="int" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="nomineeName" Type="varchar" MaxLength="50" />
+          <Property Name="paymentMode" Type="varchar" MaxLength="20" />
+          <Property Name="Relationship" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="CustID_fk">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documents__endor__7DCE75F9">
+          <End Role="Endorsement" Type="Self.Endorsement" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Endorsement">
+              <PropertyRef Name="endorsementId" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="endorsementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Endorseme__custo__52CF095B">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Endorsement" Type="Self.Endorsement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Endorsement">
+              <PropertyRef Name="customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Endorseme__Polic__79FDE515">
+          <End Role="Policy" Type="Self.Policy" Multiplicity="0..1" />
+          <End Role="Endorsement" Type="Self.Endorsement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policy">
+              <PropertyRef Name="Policy_number" />
+            </Principal>
+            <Dependent Role="Endorsement">
+              <PropertyRef Name="Policy_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProId_fk">
+          <End Role="InsuranceProducts" Type="Self.InsuranceProducts" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceProducts">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MayCHNModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="PolicyEndorsement" store:Type="Tables" />
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="PolicyEndorsement" store:Type="Tables" />
+          <EntitySet Name="Endorsement" EntityType="Self.Endorsement" Schema="PolicyEndorsement" store:Type="Tables" />
+          <EntitySet Name="InsuranceProducts" EntityType="Self.InsuranceProducts" Schema="PolicyEndorsement" store:Type="Tables" />
+          <EntitySet Name="LoginAdmin" EntityType="Self.LoginAdmin" Schema="PolicyEndorsement" store:Type="Tables" />
+          <EntitySet Name="LoginDetails" EntityType="Self.LoginDetails" Schema="PolicyEndorsement" store:Type="Tables" />
+          <EntitySet Name="Policy" EntityType="Self.Policy" Schema="PolicyEndorsement" store:Type="Tables" />
+          <AssociationSet Name="CustID_fk" Association="Self.CustID_fk">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Policy" EntitySet="Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documents__endor__7DCE75F9" Association="Self.FK__Documents__endor__7DCE75F9">
+            <End Role="Endorsement" EntitySet="Endorsement" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Endorseme__custo__52CF095B" Association="Self.FK__Endorseme__custo__52CF095B">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Endorsement" EntitySet="Endorsement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Endorseme__Polic__79FDE515" Association="Self.FK__Endorseme__Polic__79FDE515">
+            <End Role="Policy" EntitySet="Policy" />
+            <End Role="Endorsement" EntitySet="Endorsement" />
+          </AssociationSet>
+          <AssociationSet Name="ProId_fk" Association="Self.ProId_fk">
+            <End Role="InsuranceProducts" EntitySet="InsuranceProducts" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MayCHNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="Customer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mobile_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Smoker" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Date_of_Birth" Type="DateTime" Precision="0" />
+          <Property Name="Hobbies" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="endorsementStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Policies" Relationship="Self.CustID_fk" FromRole="Customer" ToRole="Policy" />
+          <NavigationProperty Name="Endorsements" Relationship="Self.FK__Endorseme__custo__52CF095B" FromRole="Customer" ToRole="Endorsement" />
+          <NavigationProperty Name="InsuranceProduct" Relationship="Self.ProId_fk" FromRole="Customer" ToRole="InsuranceProducts" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="documentId" />
+          </Key>
+          <Property Name="documentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="endorsementId" Type="Int32" />
+          <Property Name="idNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idDescription" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_number" Type="Int32" />
+          <NavigationProperty Name="Endorsement" Relationship="Self.FK__Documents__endor__7DCE75F9" FromRole="Documents" ToRole="Endorsement" />
+        </EntityType>
+        <EntityType Name="Endorsement">
+          <Key>
+            <PropertyRef Name="endorsementId" />
+          </Key>
+          <Property Name="endorsementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Policy_number" Type="Int32" />
+          <Property Name="endorsementStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="customer_Id" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Endorseme__custo__52CF095B" FromRole="Endorsement" ToRole="Customer" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK__Documents__endor__7DCE75F9" FromRole="Endorsement" ToRole="Documents" />
+          <NavigationProperty Name="Policy" Relationship="Self.FK__Endorseme__Polic__79FDE515" FromRole="Endorsement" ToRole="Policy" />
+        </EntityType>
+        <EntityType Name="InsuranceProduct">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.ProId_fk" FromRole="InsuranceProducts" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="LoginAdmin">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LoginDetail">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Policy">
+          <Key>
+            <PropertyRef Name="Policy_number" />
+          </Key>
+          <Property Name="Policy_number" Type="Int32" Nullable="false" />
+          <Property Name="Customer_id" Type="Int32" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="nomineeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="paymentMode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Relationship" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.CustID_fk" FromRole="Policy" ToRole="Customer" />
+          <NavigationProperty Name="Endorsements" Relationship="Self.FK__Endorseme__Polic__79FDE515" FromRole="Policy" ToRole="Endorsement" />
+        </EntityType>
+        <Association Name="CustID_fk">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Endorseme__custo__52CF095B">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Endorsement" Type="Self.Endorsement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Endorsement">
+              <PropertyRef Name="customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProId_fk">
+          <End Role="InsuranceProducts" Type="Self.InsuranceProduct" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceProducts">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documents__endor__7DCE75F9">
+          <End Role="Endorsement" Type="Self.Endorsement" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Endorsement">
+              <PropertyRef Name="endorsementId" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="endorsementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Endorseme__Polic__79FDE515">
+          <End Role="Policy" Type="Self.Policy" Multiplicity="0..1" />
+          <End Role="Endorsement" Type="Self.Endorsement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policy">
+              <PropertyRef Name="Policy_number" />
+            </Principal>
+            <Dependent Role="Endorsement">
+              <PropertyRef Name="Policy_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PES_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="Endorsements" EntityType="Self.Endorsement" />
+          <EntitySet Name="InsuranceProducts" EntityType="Self.InsuranceProduct" />
+          <EntitySet Name="LoginAdmins" EntityType="Self.LoginAdmin" />
+          <EntitySet Name="LoginDetails" EntityType="Self.LoginDetail" />
+          <EntitySet Name="Policies" EntityType="Self.Policy" />
+          <AssociationSet Name="CustID_fk" Association="Self.CustID_fk">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Policy" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Endorseme__custo__52CF095B" Association="Self.FK__Endorseme__custo__52CF095B">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Endorsement" EntitySet="Endorsements" />
+          </AssociationSet>
+          <AssociationSet Name="ProId_fk" Association="Self.ProId_fk">
+            <End Role="InsuranceProducts" EntitySet="InsuranceProducts" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documents__endor__7DCE75F9" Association="Self.FK__Documents__endor__7DCE75F9">
+            <End Role="Endorsement" EntitySet="Endorsements" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Endorseme__Polic__79FDE515" Association="Self.FK__Endorseme__Polic__79FDE515">
+            <End Role="Policy" EntitySet="Policies" />
+            <End Role="Endorsement" EntitySet="Endorsements" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MayCHNModelStoreContainer" CdmEntityContainer="PES_Entities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="MayCHNModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="Customer_name" ColumnName="Customer_name" />
+                <ScalarProperty Name="Customer_address" ColumnName="Customer_address" />
+                <ScalarProperty Name="Mobile_number" ColumnName="Mobile_number" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="Smoker" ColumnName="Smoker" />
+                <ScalarProperty Name="Date_of_Birth" ColumnName="Date_of_Birth" />
+                <ScalarProperty Name="Hobbies" ColumnName="Hobbies" />
+                <ScalarProperty Name="endorsementStatus" ColumnName="endorsementStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="MayCHNModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="documentId" ColumnName="documentId" />
+                <ScalarProperty Name="endorsementId" ColumnName="endorsementId" />
+                <ScalarProperty Name="idNumber" ColumnName="idNumber" />
+                <ScalarProperty Name="idDescription" ColumnName="idDescription" />
+                <ScalarProperty Name="Policy_number" ColumnName="Policy_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Endorsements">
+            <EntityTypeMapping TypeName="MayCHNModel.Endorsement">
+              <MappingFragment StoreEntitySet="Endorsement">
+                <ScalarProperty Name="endorsementId" ColumnName="endorsementId" />
+                <ScalarProperty Name="Policy_number" ColumnName="Policy_number" />
+                <ScalarProperty Name="endorsementStatus" ColumnName="endorsementStatus" />
+                <ScalarProperty Name="customer_Id" ColumnName="customer_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InsuranceProducts">
+            <EntityTypeMapping TypeName="MayCHNModel.InsuranceProduct">
+              <MappingFragment StoreEntitySet="InsuranceProducts">
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Product_name" ColumnName="Product_name" />
+                <ScalarProperty Name="Product_description" ColumnName="Product_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginAdmins">
+            <EntityTypeMapping TypeName="MayCHNModel.LoginAdmin">
+              <MappingFragment StoreEntitySet="LoginAdmin">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginDetails">
+            <EntityTypeMapping TypeName="MayCHNModel.LoginDetail">
+              <MappingFragment StoreEntitySet="LoginDetails">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="Customer_Password" ColumnName="Customer_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Policies">
+            <EntityTypeMapping TypeName="MayCHNModel.Policy">
+              <MappingFragment StoreEntitySet="Policy">
+                <ScalarProperty Name="Policy_number" ColumnName="Policy_number" />
+                <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="nomineeName" ColumnName="nomineeName" />
+                <ScalarProperty Name="paymentMode" ColumnName="paymentMode" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,121 @@
+ CREATE PROCEDURE usp_InsertEmployee
+@flag bit output,-- return 0 for fail,1 for success
+@EmpID int,
+@Name varchar(50),
+@Salary int,
+@Address varchar(100)
+AS
+BEGIN
+ BEGIN TRANSACTION 
+ BEGIN TRY 
+Insert into Employee(EmpID,Name,Salary,Address) Values(@EmpID,@Name,@Salary,@Address)
+ set @flag=1;
+IF @@TRANCOUNT > 0
+ BEGIN commit TRANSACTION;
+ END
+ END TRY 
+BEGIN CATCH
+IF @@TRANCOUNT > 0
+ BEGIN rollback TRANSACTION;
+ END
+ set @flag=0;
+ END CATCH
+END 
+
+ --Execute above created procedure to insert rows into table
+Declare @flag bit
+EXEC usp_InsertEmployee @flag output,1,'Deepak',14000,'Noida'
+if @flag=1
+ print 'Successfully inserted'
+else
+ print 'There is some error' 
+
+ --Execute above created procedure to insert rows into table
+Declare @flag bit
+EXEC usp_InsertEmployee @flag output,4,'Deepak',14000,'Noida'
+if @flag=1
+ print 'Successfully inserted'
+else
+ print 'There is some error'
+
+
+
+
+
+
+CREATE PROCEDURE usp_UpdateEmployee
+@flag bit output,-- return 0 for fail,1 for success
+@EmpID int,
+@Salary int,
+@Address varchar(100)
+AS
+BEGIN
+ BEGIN TRANSACTION 
+ BEGIN TRY
+ Update Employee set Salary=@Salary, Address=@Address
+ Where EmpID=@EmpID 
+ set @flag=1; 
+IF @@TRANCOUNT > 0
+ BEGIN commit TRANSACTION;
+ END
+ END TRY
+ BEGIN CATCH
+IF @@TRANCOUNT > 0
+ BEGIN rollback TRANSACTION; 
+ END
+ set @flag=0;
+ END CATCH
+ END 
+
+ --Execute above created procedure to update table
+Declare @flag bit
+EXEC usp_UpdateEmployee @flag output,1,22000,'Noida'
+if @flag=1 print 'Successfully updated'
+else
+ print 'There is some error' 
+
+
+
+
+
+
+
+CREATE PROCEDURE usp_DeleteEmployee
+@flag bit output,-- return 0 for fail,1 for success
+@EmpID int
+AS
+BEGIN
+ BEGIN TRANSACTION 
+ BEGIN TRY
+ Delete from Employee Where EmpID=@EmpID set @flag=1; 
+IF @@TRANCOUNT > 0
+ BEGIN commit TRANSACTION;
+ END
+ END TRY
+ BEGIN CATCH
+IF @@TRANCOUNT > 0
+ BEGIN rollback TRANSACTION; 
+ END
+set @flag=0; 
+END CATCH 
+END 
+
+ --Execute above created procedure to delete rows from table
+Declare @flag bit
+EXEC usp_DeleteEmployee @flag output, 4
+if @flag=1
+ print 'Successfully deleted'
+else
+ print 'There is some error' 
+
+
+
+
+
+
+
+
+
+
+
+
